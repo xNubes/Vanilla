@@ -1,0 +1,94 @@
+<head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.2/anime.min.js"></script>
+    <style>
+        .shine {
+            filter: drop-shadow(0 0 1rem #00f7ffcb);
+
+        }
+
+        text {
+            display: flex;
+            align-items: center;
+            height: 100%;
+            fill: black;
+        }
+
+        .inner-path {
+            fill: #47bcc2d2;
+        }
+
+        .outer-path {
+            fill: none;
+            
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <svg viewBox="0 0 2500 1500" width="100%" height="100%">
+            <clipPath id="fade-in" height="100%" clipPathUnits="userSpaceOnUse">
+                <rect class="visibility" height="100%" fill="rgba(0, 0, 0, 0)"></rect>
+            </clipPath>
+            <g clip-path="url(#fade-in)">
+                <g class="background">
+                    <path class="inner-path"
+                        d="M2350.24,1261.6L31.798,1261.6L31.798,1008.05L2437.9,1008.05L2437.9,1175.92L2350.24,1261.6Z">
+                    </path>
+                    <g class="shine">
+                        <path class="outer-path"
+                            d="M2350.24,1261.6L31.798,1261.6L31.798,1008.05L2437.9,1008.05L2437.9,1175.92L2350.24,1261.6Z">
+                        </path>
+                    </g>
+                </g>
+                <text x="100" y="1175" fill="#00f7ff" font-size="100">
+                    <tspan>Nubes</tspan>
+                    <tspan>just subscribed</tspan>
+                </text>
+            </g>
+        </svg>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            anime({
+                targets: '.visibility',
+                easing: 'easeInOutSine',
+                duration: 500,
+                width: '100%',
+                complete: function (anim) {
+                    anime({
+                        targets: '.outer-path',
+                        strokeDashoffset: [anime.setDashoffset, 0],
+                        easing: 'easeInOutSine',
+                        duration: 1500,
+                        stroke: '#00f7ff',
+                        strokeWidth: '20px',
+                        complete: function (anim) {
+                    anime({
+                        targets: '.outer-path',
+                        easing: 'linear',
+                        loop: true,
+                        stroke: '#00f7ff',
+                        keyframes: [
+                            {strokeOpacity: 1, duration: 5000},
+                            {strokeOpacity: 0, duration: 100},
+                            {strokeOpacity: 1, duration: 100},
+                            {strokeOpacity: 1, duration: 200},
+                            {strokeOpacity: 0, duration: 40},
+                            {strokeOpacity: 1, duration: 100},
+                            {strokeOpacity: 1, duration: 200},
+                            {strokeOpacity: 0, duration: 80},
+                            {strokeOpacity: 1, duration: 100},
+
+                            {strokeOpacity: 1, duration: 5000},
+
+                        ]
+
+                    })
+                }
+                    })
+                }
+            });
+        });
+    </script>
+</body>

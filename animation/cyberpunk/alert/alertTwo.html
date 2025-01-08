@@ -1,0 +1,196 @@
+<head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.2/anime.min.js"></script>
+    <style>
+        * {
+            background-color: grey;
+        }
+
+        .delayedVisibility {
+            opacity: 0;
+        }
+
+        .text {
+            opacity: 0;
+        }
+
+        .block {
+            fill-opacity: 0;
+        }
+
+        .glow {
+            animation: glow 2500ms linear infinite 2000ms;
+
+
+        }
+
+        @keyframes glow {
+            40% {
+                text-shadow: 0 0 8px rgb(0, 255, 242);
+            }
+        }
+
+        .crt {
+            stroke: black;
+            stroke-width: 2;
+            pointer-events: none;
+
+        }
+    </style>
+</head>
+
+<body>
+    <svg version="1.0" x="0px" y="0px" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"
+        viewBox="0 0 548 112">
+        <defs>
+            <!-- Define the vertical linear gradient -->
+            <linearGradient id="verticalGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="50%" stop-color="rgba(18, 16, 16, 0)" />
+                <stop offset="100%" stop-color="rgba(0, 0, 0, 0.25)" />
+            </linearGradient>
+
+            <!-- Define the horizontal linear gradient -->
+            <linearGradient id="horizontalGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="rgba(255, 0, 0, 0.06)" />
+                <stop offset="50%" stop-color="rgba(0, 255, 0, 0.02)" />
+                <stop offset="100%" stop-color="rgba(0, 0, 255, 0.06)" />
+            </linearGradient>
+
+            <!-- Define a pattern that mixes both gradients -->
+            <pattern id="mixedPattern" patternUnits="userSpaceOnUse" width="1.5" height="1.5">
+                <!-- First layer: Vertical gradient -->
+                <rect width="1.5" height="1.5" fill="url(#verticalGradient)" />
+                <!-- Second layer: Horizontal gradient -->
+                <rect width="1.5" height="1.5" fill="url(#horizontalGradient)" opacity="0.5" />
+            </pattern>
+        </defs>
+        <g clip-path="url(#clip)">
+            <g class="blender_frame crt">
+                <g id="blender_object_GPencil">
+                    <g id="Plane_Lines">
+                        <polyline class="line-drawing path" stroke="#000000" stroke-opacity="1" fill="none"
+                            stroke-linecap="round" stroke-width="2"
+                            points="538.065857,26.625671 117.398560,26.422180 103.126160,12.226257" />
+                    </g>
+                </g>
+            </g>
+            <text class="text" font-family="Verdana, Arial, Helvetica, sans-serif">
+                <tspan x="4" font-size="12" y="20">New Subscriber</tspan>
+                <tspan class="subscriber" id="subscriber" font-size="64" x="0" y="82">Nubes</tspan>
+            </text>
+            <g class="blender_frame">
+                <g id="blender_object_GPencil.002">
+                    <g id="Plane_Lines">
+                        <polyline class="line-drawing" stroke="#000000" stroke-opacity="1" fill="none"
+                            stroke-linecap="round" stroke-width="2" points="538.065735,96.436401 10.000000,96.436462" />
+                        <polyline class="line-drawing" stroke="#000000" stroke-opacity="1" fill="none"
+                            stroke-linecap="round" stroke-width="1"
+                            points="538.064880,102.591736 10.000854,102.591797" />
+                    </g>
+                </g>
+            </g>
+            <g class="blender_frame">
+                <g id="blender_object_GPencil.001">
+                    <g id="Plane_Fills">
+                        <polygon class="block" filter="blur" fill="blue" stroke="red" fill-opacity="1"
+                            points="538.065613,40.945862 538.065613,80.575073 523.146423,80.575073 523.146423,40.945862" />
+                    </g>
+                </g>
+            </g>
+            <g class="blender_frame motion-path-demo">
+                <circle class="el" r="2" fill="black" />
+            </g>
+
+            <!-- Apply the mixed pattern -->
+
+            <rect width="100%" height="100%" fill="url(#mixedPattern)" />
+
+        </g>
+        <clipPath id="clip">
+            <rect class="fade-in" y="50%" x="50%" opacity="100%" fill="white" />
+        </clipPath>
+        <rect class="fade-in" y="50%" x="50%" opacity="100%" fill="white" />
+        <rect class="crt" x="50%" fill="transparent" />
+
+    </svg>
+    <script>
+        var path = anime.path('.path');
+        document.addEventListener('DOMContentLoaded', () => {
+
+            anime({
+                targets: '.fade-in',
+                easing: 'easeInOutSine',
+                width: '100%',
+                height: '1%',
+                x: '0%',
+                delay: 750,
+                duration: 750,
+
+                complete: function (anim) {
+                    anime({
+                        targets: '.fade-in',
+                        easing: 'easeInOutSine',
+                        duration: 250,
+                        height: '100%',
+                        y: '0%',
+                        keyframes: [{
+                            opacity: '100%',
+                            opacity: '0%'
+                        }
+                        ],
+                    });
+                }
+            });
+            anime({
+                targets: '.crt',
+                easing: 'easeInOutSine',
+                width: '100%',
+                height: '100%',
+                x: '0%',
+                duration: 750,
+            });
+            anime({
+                targets: '.line-drawing',
+                strokeDashoffset: [anime.setDashoffset, 0],
+                easing: 'easeInOutSine',
+                duration: 1500,
+                delay: 1750,
+            });
+
+            anime({
+                targets: '.motion-path-demo .el',
+                translateX: path('x'),
+                translateY: path('y'),
+                rotate: path('angle'),
+                easing: 'easeInOutSine',
+                duration: 1500,
+                delay: 1750,
+                complete: function(anim) {
+                    anime({
+                        targets: '.text',
+                        opacity: '1',
+                        easing: 'easeInOutSine',
+                        complete: function () {
+                        subscriber.classList.add("glow");
+                }
+
+            });
+                }
+
+            });
+            anime({
+                targets: '.block',
+                strokeDashoffset: [anime.setDashoffset, 0],
+                easing: 'easeInOutSine',
+                duration: 1500,
+                delay: 1750,
+                complete: function (anim) {
+                    anime({
+                        targets: '.block',
+                        fillOpacity: '1',
+                    })
+                }
+            });
+
+        });
+    </script>
+</body>
